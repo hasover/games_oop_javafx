@@ -60,8 +60,40 @@ public class Logic {
         return rst;
     }
 
+    private boolean monoHorizontal(int[][] table, int row) {
+        boolean result = true;
+        for (int i = 0; i < size; i++) {
+            if (table[row][i] ==0) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private boolean monoVertical(int[][] table, int column) {
+        boolean result = true;
+        for (int i = 0; i < size; i++) {
+            if (table[i][column] ==0) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     public boolean isWin() {
-        return Win.check(convert());
+        int[][] table = this.convert();
+        boolean result = false;
+        //по аналогии с предыдущим заданием, проверяем главную диагональ, потом горизонталь или вертикаль
+        for (int i = 0; i < size; i++) {
+            if (table[i][i] == 1 && (monoHorizontal(table,i) || monoVertical(table,i))) {
+                result = true;
+                break;
+            }
+
+        }
+        return result;
     }
 
     public int[][] convert() {
